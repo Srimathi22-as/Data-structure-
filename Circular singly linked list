@@ -1,0 +1,152 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node* next;
+};
+
+struct node* temp, *head;
+
+void insertatfront(int data) {
+    struct node* new = (struct node*)malloc(sizeof(struct node));
+    if (new == NULL) {
+        printf("Memory not allocated\n");
+        return;
+    }
+    new->data = data;
+    if (head == NULL) {
+        head = new;
+        new->next = head;
+    } else {
+        temp = head;
+        while (temp->next != head) {
+            temp = temp->next;
+        }
+        new->next = head;
+        temp->next = new;
+        head = new;
+    }
+}
+
+void insertatend(int data) {
+    struct node* new = (struct node*)malloc(sizeof(struct node));
+    if (new == NULL) {
+        printf("No memory\n");
+        return;
+    }
+    new->data = data;
+    if (head == NULL) {
+        head = new;
+        new->next = head;
+    } else {
+        temp = head;
+        while (temp->next != head) {
+            temp = temp->next;
+        }
+        temp->next = new;
+        new->next = head;
+    }
+}
+
+void insertatmiddle(int data, int position) {
+    struct node* new = (struct node*)malloc(sizeof(struct node));
+    if (new == NULL) {
+        printf("No memory\n");
+        return;
+    }
+    new->data = data;
+    if (head == NULL) {
+        head = new;
+        new->next = head;
+    } else {
+        temp = head;
+        int count = 0;
+        while (count < position - 1 && temp->next != head) {
+            temp = temp->next;
+            count++;
+        }
+        new->next = temp->next;
+        temp->next = new;
+    }
+}
+
+void delatfront() {
+    if (head == NULL) {
+        printf("No nodes to delete\n");
+    } else {
+        struct node* last = head;
+        while (last->next != head) {
+            last = last->next;
+        }
+        temp = head;
+        head = temp->next;
+        last->next = head;
+        free(temp);
+    }
+}
+
+void delatend() {
+    if (head == NULL) {
+        printf("No nodes to delete\n");
+    } else {
+        struct node* prev = NULL;
+        temp = head;
+        while (temp->next != head) {
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = head;
+        free(temp);
+    }
+}
+
+void delatmiddle(int position) {
+    if (head == NULL) {
+        printf("No nodes to delete\n");
+    } else {
+        temp = head;
+        int count = 0;
+        while (count < position && temp->next != head) {
+            temp = temp->next;
+            count++;
+        }
+        struct node* prev = NULL;
+        temp = head;
+        while (temp->next != head && temp != head) {
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = temp->next;
+        free(temp);
+    }
+}
+
+void display() {
+    temp = head;
+    if (head != NULL) {
+        do {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        } while (temp != head);
+    }
+    printf("\n");
+}
+
+int main() {
+    insertatfront(100);
+    insertatfront(200);
+    insertatfront(300);
+    insertatend(900);
+    insertatend(800);
+    insertatmiddle(500, 2);
+    insertatmiddle(400, 2);
+    display();
+    delatfront();
+    display();
+    delatend();
+    display();
+    delatmiddle(4);
+    display();
+    
+    }
