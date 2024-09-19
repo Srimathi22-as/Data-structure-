@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    struct node* prev;
+    int data;
+    struct node* next;
+    
+};
+
+struct node* temp, *head, *prev;
+
+void insertatfront(int data) {
+    struct node* new = (struct node*)malloc(sizeof(struct node));
+    if (new == NULL) {
+        printf("Memory not allocated\n");
+        
+    }
+    new->data = data;
+    if(head==NULL) 
+
+ { 
+
+ head = new; 
+ new -> next = head; 
+ new -> prev = head; 
+ } 
+ else 
+ { 
+ temp = head; 
+ while(temp -> next != head) 
+ { 
+ temp = temp -> next; 
+ } 
+ temp -> next = new; 
+ new -> prev = temp; 
+ head -> prev = new; 
+ new -> next = head; 
+ head = new; 
+ } 
+ printf("Node Inserted"); 
+} 
+
+void insertatlast(int data){
+struct node* new=(struct node*)malloc(sizeof(struct node));
+new->data=data;
+if(new==NULL){
+printf("no memory");
+}
+if(head == NULL) 
+ { 
+ head = new;
+ new -> next = head; 
+ new-> prev = head; 
+ } 
+ else 
+ { 
+ temp = head; 
+ while(temp->next !=head) 
+ { 
+ temp = temp->next; 
+ } 
+ temp->next = new; 
+ new ->prev=temp; 
+ head -> prev = new; 
+ new -> next = head; 
+ } 
+ } 
+
+void delatfront()
+{
+if(head==NULL)
+{
+printf("no memory");
+}
+else
+{
+
+ temp = head; 
+ while(temp -> next != head) 
+ { 
+ temp = temp -> next; 
+ } 
+ temp -> next = head -> next; 
+ head -> next -> prev = temp; 
+ free(head); 
+ head = temp -> next; 
+ printf("\nNode Deleted\n"); 
+ } 
+ 
+}
+void delatend()
+{
+if(head==NULL)
+{
+printf("no memory ");
+}
+else 
+ { 
+ temp= head; 
+ if(temp->next != head) 
+ { 
+ temp = temp-> next; 
+ } 
+ temp -> prev -> next = head; 
+ head -> prev = temp -> prev; 
+ free(temp); 
+}}
+void display ()
+{
+    struct node* temp = head;
+    while (temp->next != head) {
+        temp = temp->next;
+    }
+    do {
+        printf("%d ", temp->data);
+        temp = temp->prev;
+    } while (temp != head);
+    printf("\n");
+}
+void main()
+{
+insertatfront(800);
+insertatfront(900);
+insertatfront(100);
+insertatfront(200);
+display();
+insertatlast(600);
+insertatlast(500);
+display ();
+delatfront();
+display ();
+delatend();
+display ();
+
+    
+}
